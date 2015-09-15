@@ -12,18 +12,14 @@
                <h4>Folders</h4>
 
                {% if current %}
-                  {% if current != "Manga" %}
-                     {% if current != "Doujinshi" %}
-                        <div class="col-1-3">
-                           <a href="/list/{{ parent }}">
-                              <div class="folder up">
-                                 <i class="fa fa-arrow-left"></i>
-                                 <p class="name">Go Back</p>
-                              </div>
-                           </a>
+                  <div class="col-1-3">
+                     <a href="/list/{{ parent }}">
+                        <div class="folder up">
+                           <i class="fa fa-arrow-left"></i>
+                           <p class="name">Go Back</p>
                         </div>
-                     {% endif %}
-                  {% endif %}
+                     </a>
+                  </div>
                {% endif %}
 
                {% for folder in items["folders"] %}

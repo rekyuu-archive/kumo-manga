@@ -33,6 +33,9 @@ def get_title (url):
 
 """
 Authentication
+
+Add @auth.login_required below the last @app.route()
+line to add simple HTML auth.
 """
 
 with open('./config.json', encoding='utf8') as file_:
@@ -56,7 +59,6 @@ def index ():
 
 @app.route('/list')
 @app.route('/list/')
-@auth.login_required
 def manga_list ():
    return render_template(
       'list.html',
