@@ -337,3 +337,14 @@ h4 {
     background: #f6e4e7; }
   #return a div p {
     text-transform: uppercase; }
+
+@media handheld, only screen and (max-width: 767px) {
+#read {
+  height: auto; }
+
+#return a div {
+  background: #0B0409;
+  color: #D8D9DC; }
+  #return a div:hover {
+    background: #0B0409; }
+}
