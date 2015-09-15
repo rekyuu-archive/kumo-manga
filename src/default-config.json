@@ -1,0 +1,6 @@
+{
+   "auth": {
+      "username": "password"
+   },
+   "root": "C:\\path\\to\\manga\\root\\folder"
+}

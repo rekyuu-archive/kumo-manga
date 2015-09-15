@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ manga_title }}{% endblock %}
+
+{% block body %}
+   <div id="read">
+      {% if total_pages == current_page %}
+         <a href="/list/{{ parent }}">
+      {% else %}
+         <a href="/read/{{ current }}/{{ current_page + 1 }}">
+      {% endif %}
+         <img src="/page/{{ current }}/{{ current_page }}" class="page">
+      </a>
+   </div>
+
+   <div id="return">
+      <a href="/list/{{ parent }}">
+         <div>
+            <p>Return to List</p>
+         </div>
+      </a>
+   </div>
+{% endblock %}

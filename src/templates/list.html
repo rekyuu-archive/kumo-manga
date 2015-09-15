@@ -1,0 +1,70 @@
+{% extends "content.html" %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+   <div id="content" class="row">
+      <div class="col-1-1">
+         <div id="inner" class="grid">
+
+            <div id="folder-list" class="row">
+
+               <h4>Folders</h4>
+
+               {% if current %}
+                  {% if current != "Manga" %}
+                     {% if current != "Doujinshi" %}
+                        <div class="col-1-3">
+                           <a href="/list/{{ parent }}">
+                              <div class="folder up">
+                                 <i class="fa fa-arrow-left"></i>
+                                 <p class="name">Go Back</p>
+                              </div>
+                           </a>
+                        </div>
+                     {% endif %}
+                  {% endif %}
+               {% endif %}
+
+               {% for folder in items["folders"] %}
+                  <div class="col-1-3">
+                     {% if current %}
+                        <a href="/list/{{ current }}/{{ folder }}">
+                     {% else %}
+                        <a href="/list/{{ folder }}">
+                     {% endif %}
+                        <div class="folder {{ folder }}">
+                           <i class="fa fa-folder"></i>
+                           <p class="name">{{ folder|truncate(30, True) }}</p>
+                        </div>
+                     </a>
+                  </div>
+               {% endfor %}
+
+            </div>
+
+            {% if items["files"] %}
+               <div id="manga-list" class="row">
+
+                  <h4>Manga</h4>
+
+                  {% for file in items["files"] %}
+                     <div class="manga col-1-4 mobile-col-1-2">
+                        <a href="/read/{{ current }}/{{ file[1] }}">
+                           {% if file[1] %}
+                              <div style="background-image: url('/cover/{{ current }}/{{ file[1] }}')" class="cover"></div>
+                           {% else %}
+                              <div style="background-image: url('/cover/{{ current }}/{{ file[0] }}')" class="cover"></div>
+                           {% endif %}
+                           <p class="title hide-on-mobile">{{ file[0]|truncate(45, True) }}</p>
+                        </a>
+                     </div>
+                  {% endfor %}
+
+               </div>
+            {% endif %}
+
+         </div>
+      </div>
+   </div>
+{% endblock %}

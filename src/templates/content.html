@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Content{% endblock %}
+
+{% block body %}
+
+   <div class="grid">
+
+      <div id="header" class="row">
+         <a href="/"><h1>Kumo Manga</h1></a>
+      </div>
+
+      {% block content %}
+      {% endblock %}
+
+      <div id="footer" class="row">
+         <p>Made by @bo1g.</p>
+      </div>
+
+   </div>
+
+{% endblock %}
