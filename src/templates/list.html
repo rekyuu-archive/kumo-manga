@@ -46,7 +46,11 @@
 
                   {% for file in items["files"] %}
                      <div class="manga col-1-4 mobile-col-1-2">
-                        <a href="/read/{{ current }}/{{ file[1] }}">
+                        {% if current %}
+                           <a href="/read/{{ current }}/{{ file[1] }}">
+                        {% else %}
+                           <a href="/read/{{ file[1] }}">
+                        {% endif %}
                            {% if file[1] %}
                               <div style="background-image: url('/cover/{{ current }}/{{ file[1] }}')" class="cover"></div>
                            {% else %}
