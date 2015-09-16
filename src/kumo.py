@@ -1,11 +1,12 @@
 import io, json
+import redis
 from lists import folder, manga
 from flask import Flask, render_template, send_file
 from flask_httpauth import HTTPBasicAuth
 
 app  = Flask(__name__)
 auth = HTTPBasicAuth()
-
+r = redis.Redis(host='localhost', port=6379, db=0)
 
 """
 Helper definitions.
@@ -90,12 +91,18 @@ def manga_read (filename, pagenum=1):
 
 @app.route('/cover/<path:filepath>')
 def manga_cover (filepath):
-   cover = manga.get_cover(filepath)
+   cover = r.get(filepath)
+   if not cover:
+      cover = manga.get_cover(filepath)
+      r.set(filepath, cover)
    return send_file(io.BytesIO(cover))
 
 @app.route('/page/<path:filepath>/<int:pagenum>')
 def manga_page (filepath, pagenum=1):
-   page = manga.get_page(filepath, pagenum)
+   page = r.get(filepath + str(pagenum))
+   if not page:
+      page = manga.get_page(filepath, pagenum)
+      r.set(filepath + str(pagenum), page)
    return send_file(io.BytesIO(page))
 
 

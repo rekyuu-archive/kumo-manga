@@ -52,4 +52,4 @@ def return_listing (directory = ''):
       elif os.path.isfile(path + '/' + item):
          files.append((item.split('.')[0], item))
 
-   return {"files": files, "folders": folders}
+   return {"files": sorted(files), "folders": sorted(folders)}
