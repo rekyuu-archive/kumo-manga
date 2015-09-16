@@ -1,5 +1,4 @@
-import io, json
-import redis
+import io, json, redis
 from lists import folder, manga
 from flask import Flask, render_template, send_file
 from flask_httpauth import HTTPBasicAuth

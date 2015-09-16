@@ -14,12 +14,20 @@ redis
 
 * Rename `default-config.json` to `config.json` and fill in the appropriate information.
 * Install the dependencies as listed above.
-* Setup and run redis, either including the provided redis.conf or appending it to the existing config in `/etc/redis.conf`
+* Setup and run redis, either including the below example or appending it to the existing config in `/etc/redis.conf`.
 
-#### Windows Setup
+#### Example redis.conf
+
+```
+maxmemory 500mb
+maxmemory-policy allkeys-lru
+maxmemory-samples 5
+```
+
+### Windows Setup
 
 * You will need to download `unrar.exe` and place it in the `deps` folder located at the root.
-* You will need to download and install a redis fork [here](https://github.com/rgl/redis/downloads).
+* For redis, there is a Windows fork [here](https://github.com/rgl/redis/downloads).
 
 ## Usage
 
