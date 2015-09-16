@@ -14,9 +14,9 @@ redis
 
 * Rename `default-config.json` to `config.json` and fill in the appropriate information.
 * Install the dependencies as listed above.
-* Setup and run redis, either including the below example or appending it to the existing config in `/etc/redis.conf`.
+* Setup and run redis, either including the below lines or appending it to the existing config in `/etc/redis.conf`.
 
-#### Example redis.conf
+#### redis.conf
 
 ```
 maxmemory 500mb

@@ -104,6 +104,11 @@ def manga_page (filepath, pagenum=1):
       r.set(filepath + str(pagenum), page)
    return send_file(io.BytesIO(page))
 
+# Error handling
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 """
 Server

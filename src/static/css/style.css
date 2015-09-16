@@ -301,7 +301,8 @@ h4 {
           background-size: cover;
           height: 23em; }
         #content #inner #manga-list a p.title {
-          font-weight: bold; }
+          font-weight: bold;
+          word-wrap: break-word; }
 
 @media handheld, only screen and (max-width: 767px) {
   #content #inner #manga-list .manga {
