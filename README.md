@@ -10,7 +10,7 @@ natsort
 rarfile
 ```
 #### Optional Dependencies
-``
+```
 redis
 ```
 
