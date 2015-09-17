@@ -6,7 +6,11 @@ A web based manga reader.
 ```
 flask
 flask_httpauth
+natsort
 rarfile
+```
+#### Optional Dependencies
+``
 redis
 ```
 
