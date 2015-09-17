@@ -126,7 +126,7 @@ def compare_files (page1, page2):
    if index1 == -1 or index2 == -1:
       return -1 if page1 < page2 else 1
 
-   seq1, seq2 = ""
+   seq1 = seq2 = ""
    while index1 < len(page1) and index2 < len(page2):
       try:
          int(page1[i])
