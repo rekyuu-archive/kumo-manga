@@ -1,11 +1,24 @@
-import io, json, redis
+import io, json, imp
 from lists import folder, manga
 from flask import Flask, render_template, send_file
 from flask_httpauth import HTTPBasicAuth
 
 app  = Flask(__name__)
 auth = HTTPBasicAuth()
+
+using_redis = True
+try:
+    import redis
+except ImportError:
+    using_redis = False
+
 r = redis.Redis(host='localhost', port=6379, db=0)
+try:
+    # There's probably a better way to do this, but
+    # this should suffice for now
+    r.get("test")
+except redis.exceptions.ConnectionError:
+    using_redis = False
 
 """
 Helper definitions.
@@ -90,18 +103,24 @@ def manga_read (filename, pagenum=1):
 
 @app.route('/cover/<path:filepath>')
 def manga_cover (filepath):
-   cover = r.get(filepath)
-   if not cover:
+   if using_redis:
+      cover = r.get(filepath)
+      if not cover:
+         cover = manga.get_cover(filepath)
+         r.set(filepath, cover)
+   else:
       cover = manga.get_cover(filepath)
-      r.set(filepath, cover)
    return send_file(io.BytesIO(cover))
 
 @app.route('/page/<path:filepath>/<int:pagenum>')
 def manga_page (filepath, pagenum=1):
-   page = r.get(filepath + str(pagenum))
-   if not page:
+   if using_redis:
+      page = r.get(filepath + str(pagenum))
+      if not page:
+         page = manga.get_page(filepath, pagenum)
+         r.set(filepath + str(pagenum), page)
+   else:
       page = manga.get_page(filepath, pagenum)
-      r.set(filepath + str(pagenum), page)
    return send_file(io.BytesIO(page))
 
 # Error handling

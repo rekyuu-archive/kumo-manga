@@ -1,6 +1,8 @@
-import io, json, os, rarfile
+import io, json, os, rarfile, random
 from sys import platform
 from zipfile import ZipFile
+from heapq import merge
+from natsort import natsorted
 
 if platform == 'win32':
    rarfile.UNRAR_TOOL = './deps/unrar.exe'
@@ -40,7 +42,7 @@ def get_cover (filepath):
    path = root + '/' + filepath
 
    if os.path.isdir(path):
-      files = sorted(os.listdir(path))
+      files = quick(os.listdir(path))
       image = path + '/' + cover_cleaner(files)
 
       with open(image, 'rb') as file_:
@@ -52,7 +54,7 @@ def get_cover (filepath):
 
       if filetype == 'zip':
          with ZipFile(path) as archive:
-            files = sorted(archive.namelist())
+            files = natsorted(archive.namelist())
             image = cover_cleaner(files)
 
             with archive.open(image) as file_:
@@ -61,13 +63,12 @@ def get_cover (filepath):
 
       elif filetype == 'rar':
          with rarfile.RarFile(path) as archive:
-            files = sorted(archive.namelist())
+            files = natsorted(archive.namelist())
             image = cover_cleaner(files)
 
             with archive.open(image) as file_:
                cover = file_.read()
                return cover
-
 
 """
 Pulls the current image as a page
@@ -77,7 +78,7 @@ def get_page (filepath, pagenum):
    path = root + '/' + filepath
 
    if os.path.isdir(path):
-      files = sorted(os.listdir(path))
+      files = natsorted(os.listdir(path))
       files = pages_cleaner(files)
 
       image = path + '/' + files[pagenum - 1]
@@ -90,7 +91,7 @@ def get_page (filepath, pagenum):
 
       if filetype == 'zip':
          with ZipFile(path) as archive:
-            files = sorted(archive.namelist())
+            files = natsorted(archive.namelist())
             files = pages_cleaner(files)
 
             image = files[pagenum - 1]
@@ -100,14 +101,13 @@ def get_page (filepath, pagenum):
 
       elif filetype == 'rar':
          with rarfile.RarFile(path) as archive:
-            files = sorted(archive.namelist())
+            files = natsorted(archive.namelist())
             files = pages_cleaner(files)
 
             image = files[pagenum - 1]
             with archive.open(image) as file_:
                page = file_.read()
                return page
-
 
 """
 Returns total pages for hyperlinking
