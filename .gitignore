@@ -1,6 +1,7 @@
 # Sensitive
 config.json
 unrar.exe
+*.lvimrc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
